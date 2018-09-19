@@ -4,7 +4,7 @@ import "strings"
 
 const maxLength = 32
 
-// DoubleMetaphone computes the primary and secondary Metaphone of the given string. The orignal string
+// DoubleMetaphone computes the primary and secondary Metaphone of the given string. The original string
 // is not modified by the function
 func DoubleMetaphone(str string) (string, string) {
 
