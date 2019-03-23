@@ -1,11 +1,11 @@
 package main
 
 import (
-	"bitbucket.org/twuillemin/doublemetaphone/pkg/doublemetaphone"
 	"fmt"
+	"github.com/twuillemin/doublemetaphone/pkg/doublemetaphone"
 )
 
-func main(){
+func main() {
 	primary, secondary := doublemetaphone.DoubleMetaphone("SMITH")
 	fmt.Printf("Metaphones for SMITH: first: %v, second: %v\n", primary, secondary)
 

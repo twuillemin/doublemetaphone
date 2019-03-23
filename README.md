@@ -1,4 +1,4 @@
-#Description
+# Description
 Metaphone is a phonetic algorithm, published by Lawrence Philips in 1990, for indexing words by their English 
 pronunciation.
 
@@ -8,7 +8,7 @@ of a number of other languages. Original article can be found at [Dr Dobb's](htt
 
 Other details can be found on [Wikipedia](https://en.wikipedia.org/wiki/Metaphone#Double_Metaphone)
 
-#Usage
+# Usage
 
 Usage is very simple, after importing the package, call the `doublemetaphone.DoubleMetaphone()` function to retrieve
 the first and the second metaphones. The function takes as a parameter the string to index and returns its metaphones.
@@ -20,7 +20,7 @@ fmt.Printf("Metaphones for SMITH: first: %v, second: %v\n", primary, secondary)
 ``` 
 
 
-#Copyright
+# Copyright
 Copyright 2018, Thomas Wuillemin <thomas.wuillemin@gmail.com>
 
 This code is a derivative work from an implementation by Stephen Lacy <slacy@slacy.com>. Original implementation can 

@@ -1,1 +1,1 @@
-module bitbucket.org/twuillemin/doublemetaphone
+module github.com/twuillemin/doublemetaphone
