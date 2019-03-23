@@ -47,7 +47,6 @@ func DoubleMetaphone(str string) (string, string) {
 				secondary += "A"
 			}
 			current += 1
-			break
 
 		case 'B':
 			// "-mb", e.g", "dumb", already skipped over...
@@ -59,13 +58,11 @@ func DoubleMetaphone(str string) (string, string) {
 			} else {
 				current += 1
 			}
-			break
 
 		case 'Ç':
 			primary += "S"
 			secondary += "S"
 			current += 1
-			break
 
 		case 'C':
 			// Various germanic
@@ -118,11 +115,11 @@ func DoubleMetaphone(str string) (string, string) {
 
 				// Germanic, greek, or otherwise 'ch' for 'kh' sound
 				if matchStrings(original, 0, []string{"VAN ", "VON ", "SCH"}) ||
-				// 'architect but not 'arch', 'orchestra', 'orchid'
+					// 'architect but not 'arch', 'orchestra', 'orchid'
 					matchStrings(original, current-2, []string{"ORCHES", "ARCHIT", "ORCHID"}) ||
 					matchStrings(original, current+2, []string{"T", "S"}) ||
 					((matchStrings(original, current-1, []string{"A", "O", "U", "E"}) || (current == 0)) &&
-					// e.g., 'wachtler', 'wechsler', but not 'tichner' 
+						// e.g., 'wachtler', 'wechsler', but not 'tichner'
 						matchStrings(original, current+2, []string{"L", "R", "N", "M", "B", "H", "F", "V", "W", " "})) {
 					primary += "K"
 					secondary += "K"
@@ -162,20 +159,20 @@ func DoubleMetaphone(str string) (string, string) {
 
 			// Double 'C', but not if e.g. 'McClellan'
 			if matchString(original, current, "CC") && !((current == 1) && (getAt(original, 0) == 'M')) {
-				// 'bellocchio' but not 'bacchus' 
+				// 'bellocchio' but not 'bacchus'
 				if matchStrings(original, current+2, []string{"I", "E", "H"}) && !matchString(original, current+2, "HU") {
-					// 'accident', 'accede' 'succeed' 
+					// 'accident', 'accede' 'succeed'
 					if ((current == 1) && (getAt(original, current-1) == 'A')) || matchStrings(original, current-1, []string{"UCCEE", "UCCES"}) {
 						primary += "KS"
 						secondary += "KS"
-						// 'bacci', 'bertucci', other italian 
+						// 'bacci', 'bertucci', other italian
 					} else {
 						primary += "X"
 						secondary += "X"
 					}
 					current += 3
 					break
-				} else { // Pierce's rule 
+				} else { // Pierce's rule
 					primary += "K"
 					secondary += "K"
 					current += 2
@@ -191,7 +188,7 @@ func DoubleMetaphone(str string) (string, string) {
 			}
 
 			if matchStrings(original, current, []string{"CI", "CE", "CY"}) {
-				// italian vs. english 
+				// italian vs. english
 				if matchStrings(original, current, []string{"CIO", "CIE", "CIA"}) {
 					primary += "S"
 					secondary += "X"
@@ -203,11 +200,11 @@ func DoubleMetaphone(str string) (string, string) {
 				break
 			}
 
-			// else 
+			// else
 			primary += "K"
 			secondary += "K"
 
-			// name sent in 'mac caffrey', 'mac gregor 
+			// name sent in 'mac caffrey', 'mac gregor
 			if matchStrings(original, current+1, []string{" C", " Q", " G"}) {
 				current += 3
 			} else {
@@ -218,18 +215,17 @@ func DoubleMetaphone(str string) (string, string) {
 					current += 1
 				}
 			}
-			break
 
 		case 'D':
 			if matchString(original, current, "DG") {
 				if matchStrings(original, current+2, []string{"I", "E", "Y"}) {
-					// e.g. 'edge' 
+					// e.g. 'edge'
 					primary += "J"
 					secondary += "J"
 					current += 3
 					break
 				} else {
-					// e.g. 'edgar' 
+					// e.g. 'edgar'
 					primary += "TK"
 					secondary += "TK"
 					current += 2
@@ -244,11 +240,10 @@ func DoubleMetaphone(str string) (string, string) {
 				break
 			}
 
-			// else 
+			// else
 			primary += "T"
 			secondary += "T"
 			current += 1
-			break
 
 		case 'F':
 			if getAt(original, current+1) == 'F' {
@@ -258,7 +253,6 @@ func DoubleMetaphone(str string) (string, string) {
 				primary += "F"
 				secondary += "F"
 			}
-			break
 
 		case 'G':
 			if getAt(original, current+1) == 'H' {
@@ -270,7 +264,7 @@ func DoubleMetaphone(str string) (string, string) {
 				}
 
 				if current < 3 {
-					// 'ghislane', ghiradelli 
+					// 'ghislane', ghiradelli
 					if current == 0 {
 						if getAt(original, current+2) == 'I' {
 							primary += "J"
@@ -283,11 +277,11 @@ func DoubleMetaphone(str string) (string, string) {
 						break
 					}
 				}
-				// Parker's rule (with some further refinements) - e.g., 'hugh' 
+				// Parker's rule (with some further refinements) - e.g., 'hugh'
 				if ((current > 1) && matchStrings(original, current-2, []string{"B", "H", "D"})) ||
-				// E.g., 'bough'
+					// E.g., 'bough'
 					((current > 2) && matchStrings(original, current-3, []string{"B", "H", "D"})) ||
-				// E.g., 'broughton'
+					// E.g., 'broughton'
 					((current > 3) && matchStrings(original, current-4, []string{"B", "H"})) {
 					current += 2
 					break
@@ -323,7 +317,7 @@ func DoubleMetaphone(str string) (string, string) {
 				break
 			}
 
-			// 'tagliaro' 
+			// 'tagliaro'
 			if matchStrings(original, current+1, []string{"LI"}) && !isSlavoGermanic(original) {
 				primary += "KL"
 				secondary += "L"
@@ -331,7 +325,7 @@ func DoubleMetaphone(str string) (string, string) {
 				break
 			}
 
-			// -ges-,-gep-,-gel-, -gie- at beginning 
+			// -ges-,-gep-,-gel-, -gie- at beginning
 			if (current == 0) &&
 				((getAt(original, current+1) == 'Y') ||
 					matchStrings(original, current+1, []string{"ES", "EP", "EB", "EL", "EY", "IB", "IL", "IN", "IE", "EI", "ER"})) {
@@ -341,7 +335,7 @@ func DoubleMetaphone(str string) (string, string) {
 				break
 			}
 
-			//  -ger-,  -gy- 
+			//  -ger-,  -gy-
 			if (matchString(original, current+1, "ER") || (getAt(original, current+1) == 'Y')) &&
 				!matchStrings(original, 0, []string{"DANGER", "RANGER", "MANGER"}) &&
 				!matchStrings(original, current-1, []string{"E", "I"}) &&
@@ -362,7 +356,7 @@ func DoubleMetaphone(str string) (string, string) {
 					secondary += "K"
 				} else {
 					// Always soft if french ending
-					if (matchStrings(original, current+1, []string{"IER "})) {
+					if matchStrings(original, current+1, []string{"IER "}) {
 						primary += "J"
 						secondary += "J"
 					} else {
@@ -381,7 +375,6 @@ func DoubleMetaphone(str string) (string, string) {
 				primary += "K"
 				secondary += "K"
 			}
-			break
 
 		case 'H':
 			// Only keep if first & before vowel or btw. 2 vowels
@@ -389,10 +382,9 @@ func DoubleMetaphone(str string) (string, string) {
 				primary += "H"
 				secondary += "H"
 				current += 2
-			} else { // also takes care of 'HH' 
+			} else { // also takes care of 'HH'
 				current += 1
 			}
-			break
 
 		case 'J':
 			// Obvious spanish, 'jose', 'san jacinto'
@@ -432,12 +424,11 @@ func DoubleMetaphone(str string) (string, string) {
 				}
 			}
 
-			if getAt(original, current+1) == 'J' { // it could happen! 
+			if getAt(original, current+1) == 'J' { // it could happen!
 				current += 2
 			} else {
 				current += 1
 			}
-			break
 
 		case 'K':
 			if getAt(original, current+1) == 'K' {
@@ -447,7 +438,6 @@ func DoubleMetaphone(str string) (string, string) {
 				primary += "K"
 				secondary += "K"
 			}
-			break
 
 		case 'L':
 			if getAt(original, current+1) == 'L' {
@@ -468,13 +458,12 @@ func DoubleMetaphone(str string) (string, string) {
 				primary += "L"
 				secondary += "L"
 			}
-			break
 
 		case 'M':
 			if (matchStrings(original, current-1, []string{"UMB"}) &&
 				(((current + 1) == last) ||
 					matchStrings(original, current+2, []string{"ER"}))) ||
-			// 'dumb','thumb' 
+				// 'dumb','thumb'
 				(getAt(original, current+1) == 'M') {
 				current += 2
 			} else {
@@ -482,7 +471,6 @@ func DoubleMetaphone(str string) (string, string) {
 			}
 			primary += "M"
 			secondary += "M"
-			break
 
 		case 'N':
 			if getAt(original, current+1) == 'N' {
@@ -492,13 +480,11 @@ func DoubleMetaphone(str string) (string, string) {
 			}
 			primary += "N"
 			secondary += "N"
-			break
 
 		case 'Ñ':
 			current += 1
 			primary += "N"
 			secondary += "N"
-			break
 
 		case 'P':
 			if getAt(original, current+1) == 'H' {
@@ -516,7 +502,6 @@ func DoubleMetaphone(str string) (string, string) {
 				primary += "P"
 				secondary += "P"
 			}
-			break
 
 		case 'Q':
 			if getAt(original, current+1) == 'Q' {
@@ -526,7 +511,6 @@ func DoubleMetaphone(str string) (string, string) {
 				primary += "K"
 				secondary += "K"
 			}
-			break
 
 		case 'R':
 			// French e.g. 'rogier', but exclude 'hochmeier'
@@ -546,7 +530,6 @@ func DoubleMetaphone(str string) (string, string) {
 			} else {
 				current += 1
 			}
-			break
 
 		case 'S':
 			// Special cases 'island', 'isle', 'carlisle', 'carlysle'
@@ -604,11 +587,11 @@ func DoubleMetaphone(str string) (string, string) {
 			}
 
 			if matchString(original, current, "SC") {
-				// Schlesinger's rule 
+				// Schlesinger's rule
 				if getAt(original, current+2) == 'H' {
-					// dutch origin, e.g. 'school', 'schooner' 
+					// dutch origin, e.g. 'school', 'schooner'
 					if matchStrings(original, current+3, []string{"OO", "ER", "EN", "UY", "ED", "EM"}) {
-						// 'schermerhorn', 'schenker' 
+						// 'schermerhorn', 'schenker'
 						if matchStrings(original, current+3, []string{"ER", "EN"}) {
 							primary += "X"
 							secondary += "SK"
@@ -637,14 +620,14 @@ func DoubleMetaphone(str string) (string, string) {
 					current += 3
 					break
 				}
-				// else 
+				// else
 				primary += "SK"
 				secondary += "SK"
 				current += 3
 				break
 			}
 
-			// french e.g. 'resnais', 'artois' 
+			// french e.g. 'resnais', 'artois'
 			if (current == last) &&
 				matchStrings(original, current-2, []string{"AI", "OI"}) {
 				primary += ""
@@ -659,7 +642,6 @@ func DoubleMetaphone(str string) (string, string) {
 			} else {
 				current += 1
 			}
-			break
 
 		case 'T':
 			if matchString(original, current, "TION") {
@@ -696,7 +678,6 @@ func DoubleMetaphone(str string) (string, string) {
 			}
 			primary += "T"
 			secondary += "T"
-			break
 
 		case 'V':
 			if getAt(original, current+1) == 'V' {
@@ -706,7 +687,6 @@ func DoubleMetaphone(str string) (string, string) {
 			}
 			primary += "F"
 			secondary += "F"
-			break
 
 		case 'W':
 			// can also be in middle of word
@@ -750,7 +730,6 @@ func DoubleMetaphone(str string) (string, string) {
 
 			// else skip it
 			current += 1
-			break
 
 		case 'X':
 			// french e.g. breaux
@@ -765,7 +744,6 @@ func DoubleMetaphone(str string) (string, string) {
 			} else {
 				current += 1
 			}
-			break
 
 		case 'Z':
 			// chinese pinyin e.g. 'zhao'
@@ -790,7 +768,6 @@ func DoubleMetaphone(str string) (string, string) {
 			} else {
 				current += 1
 			}
-			break
 
 		default:
 			current += 1
